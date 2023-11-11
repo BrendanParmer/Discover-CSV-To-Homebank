@@ -25,9 +25,9 @@ def transform_csv(input_file, output_file):
     transformed_data.to_csv(output_file, index=False)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Transform credit card CSV data for financial software.')
-    parser.add_argument('input_file', help='Input CSV file (credit card data)')
-    parser.add_argument('output_file', help='Output CSV file (transformed data)')
+    parser = argparse.ArgumentParser(description='Transform Discover credit card CSV data for Homebank financial software.')
+    parser.add_argument('input_file', help='Input CSV file (from Discover credit card data)')
+    parser.add_argument('output_file', help='Output CSV file (transformed data for Homebank)')
 
     args = parser.parse_args()
 
