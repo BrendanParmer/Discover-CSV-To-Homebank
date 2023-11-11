@@ -39,6 +39,6 @@ options:
 ```
 Example
 ```
-(.venv) user@device:.../Discover-CSV-To-Homebank$ python3 main.py Discover-Statement-yyyymmdd.csv Homebank-Discover-yyyymmdd.csv
+python3 main.py Discover-Statement-yyyymmdd.csv Homebank-Discover-yyyymmdd.csv
 ```
 Make sure you have the virtual environment activated before running
