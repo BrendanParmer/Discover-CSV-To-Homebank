@@ -26,19 +26,26 @@ Convert Discover credit card CSV exports into a CSV format readable by Homebank 
 ## Usage
 ### Unix
 ```
-usage: main.py [-h] input_file output_file
+usage: main.py [-h] [--categories CATEGORIES] input_file output_file
 
 Transform Discover credit card CSV data for Homebank financial software.
 
 positional arguments:
-  input_file   Input CSV file (from Discover credit card data)
-  output_file  Output CSV file (transformed data for Homebank)
+  input_file            Input CSV file (from Discover credit card data)
+  output_file           Output CSV file (transformed data for Homebank)
 
 options:
-  -h, --help   show this help message and exit
+  -h, --help            show this help message and exit
+  --categories CATEGORIES
+                        Path to the category mapping config file
 ```
-Example
+### Examples
+No automatic category renaming
 ```
 python3 main.py Discover-Statement-yyyymmdd.csv Homebank-Discover-yyyymmdd.csv
+```
+Apply category renaming
+```
+python3 main.py Discover-Statement-yyyymmdd.csv Homebank-Discover-yyyymmdd.csv --categories examples/example_mapping.json
 ```
 Make sure you have the virtual environment activated before running
