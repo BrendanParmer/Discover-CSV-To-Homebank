@@ -14,7 +14,7 @@ def load_category_mapping(categories_file):
         print(f"Error: Invalid JSON format in '{categories_file}'.")
         exit(1)
 
-def transform_csv(input_file, output_file, categories_file):
+def transform_discover_csv(input_file, output_file, categories_file):
     # Load your CSV data into a pandas DataFrame
     credit_card_data = pd.read_csv(input_file)
 
@@ -45,12 +45,31 @@ def transform_csv(input_file, output_file, categories_file):
     # Save the transformed data to a new CSV file
     transformed_data.to_csv(output_file, index=False)
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Transform Discover credit card CSV data for Homebank financial software.')
-    parser.add_argument('input_file', help='Input CSV file (from Discover credit card data)')
-    parser.add_argument('output_file', help='Output CSV file (transformed data for Homebank)')
-    parser.add_argument('--categories', help='Path to the category mapping config file')
+def transform_bmo_alto_csv(input_file, output_file, categories_file):
+    data = pd.read_csv(input_file)
+    transformed_data = pd.DataFrame({
+        'date': data['Date'],
+        'payment' : '',
+        'info' : '',
+        'payee': '',
+        'memo' : data['Description'],
+        'amount' : data['Credits(+)'],
+        'category' : '',
+        'tags' : ''
+    })
+    transformed_data.to_csv(output_file, index=False)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Transform CSV data for Homebank financial software.')
+    parser.add_argument('input_file', help='Input CSV file')
+    parser.add_argument('output_file', help='Output CSV file')
+    parser.add_argument('--mode', help="One of {DISCOVER, BMO_ALTO}")
+    parser.add_argument('--categories', help='Path to the category mapping config file')
     args = parser.parse_args()
 
-    transform_csv(args.input_file, args.output_file, args.categories)
+    if args.mode == 'DISCOVER':
+        transform_discover_csv(args.input_file, args.output_file, args.categories)
+    elif args.mode == 'BMO_ALTO':
+        transform_bmo_alto_csv(args.input_file, args.output_file, args.categories)
+    else:
+        print(f"No conversion found for mode {args.mode}")
